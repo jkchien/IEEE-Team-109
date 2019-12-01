@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/game.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <title>Hello, world!</title>
+    </head>
+    <body>
+        <form id="input">
+            <section class="button_container">
+                <h2>Target</h2>
+                <div id="dropdown1" class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Row Number
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="row">
+                        <a class="dropdown-item" href="#" value="A">0</a>
+                        <a class="dropdown-item" href="#" value="B">1</a>
+                        <a class="dropdown-item" href="#" value="C">2</a>
+                        <a class="dropdown-item" href="#" value="D">3</a>
+                        <a class="dropdown-item" href="#" value="D">4</a>
+                    </div>
+                </div>
+
+
+                <div id="dropdown2" class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Column Number
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2" id="col">
+                        <a class="dropdown-item" href="#" value="0">0</a>
+                        <a class="dropdown-item" href="#" value="1">1</a>
+                        <a class="dropdown-item" href="#" value="2">2</a>
+                        <a class="dropdown-item" href="#" value="3">3</a>
+                        <a class="dropdown-item" href="#" value="4">4</a>
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="button_container">
+                <h2>Destination</h2>
+                <div id="dropdown3" class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Row Number
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="drow">
+                        <a class="dropdown-item" href="#" value="A">0</a>
+                        <a class="dropdown-item" href="#" value="B">1</a>
+                        <a class="dropdown-item" href="#" value="C">2</a>
+                        <a class="dropdown-item" href="#" value="D">3</a>
+                        <a class="dropdown-item" href="#" value="D">4</a>
+                    </div>
+                </div>
+
+
+                <div id="dropdown4" class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Column Number
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2" id="dcol">
+                        <a class="dropdown-item" href="#" value="0">0</a>
+                        <a class="dropdown-item" href="#" value="1">1</a>
+                        <a class="dropdown-item" href="#" value="2">2</a>
+                        <a class="dropdown-item" href="#" value="3">3</a>
+                        <a class="dropdown-item" href="#" value="4">4</a>
+                    </div>
+                </div>
+
+            </section>
+
+            <section id="button_holder">
+
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-secondary active">
+                        <input type="radio" name="options" id="option1" checked> Move
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="option2"> Attack
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="option3"> Remove
+                    </label>
+                </div>
+
+            </section>
+
+
+        </form>
+
+        <script>
+            var value1 = 1;
+            var value2 = 1;
+            var value3 = 1;
+            var value4 = 1;
+            $("#dropdown1 a").click(function() {
+                var row = $(this).text();
+                $("#dropdownMenuButton1").html(row.toString());
+                // alert(row.toString());
+                value1 = parseInt(row);
+                console.log("value", value1);
+            });
+
+            $("#dropdown2 a").click(function() {
+                var col = $(this).text();
+                // alert(row.toString());
+                $("#dropdownMenuButton2").html(col.toString());
+
+                value2 = parseInt(col);
+                console.log("value", value2);
+
+            });
+
+            $("#dropdown3 a").click(function() {
+                var rrow = $(this).text();
+                // alert(row.toString());
+                $("#dropdownMenuButton3").html(rrow.toString());
+
+                value3 = parseInt(rrow);
+                console.log("value", value3);
+
+            });
+
+            $("#dropdown4 a").click(function() {
+                var ccol = $(this).text();
+                // alert(row.toString());
+                $("#dropdownMenuButton4").html(ccol.toString());
+
+                value4 = parseInt(ccol);
+                console.log("value", value4);
+
+            });
+
+            $('#button_holder label input').click(function(){
+                alert("got it");
+                const URL1 = 'https://api.thingspeak.com/update?api_key=IVRNB8KPWJK40ON7&field1=' + 1;
+                const URL2 = 'https://api.thingspeak.com/update?api_key=IVRNB8KPWJK40ON7&field2=' + value1;
+
+                const URL3 = 'https://api.thingspeak.com/update?api_key=IVRNB8KPWJK40ON7&field3=' + value2;
+                const URL4 = 'https://api.thingspeak.com/update?api_key=IVRNB8KPWJK40ON7&field4=' + value3;
+                const URL5 = 'https://api.thingspeak.com/update?api_key=IVRNB8KPWJK40ON7&field5=' + value4;
+
+                axios({
+                    method: 'post',
+                    url: URL1,
+
+                }).then(data => console.log(data)).catch(err=>console.log(err));
+
+                axios({
+                    method: 'post',
+                    url: URL2,
+
+                }).then(data => console.log(data)).catch(err=>console.log(err));
+
+                axios({
+                    method: 'post',
+                    url: URL3,
+
+                }).then(data => console.log(data)).catch(err=>console.log(err));
+
+                axios({
+                    method: 'post',
+                    url: URL4,
+
+                }).then(data => console.log(data)).catch(err=>console.log(err));
+
+                axios({
+                    method: 'post',
+                    url: URL5,
+
+                }).then(data => console.log(data)).catch(err=>console.log(err));
+            })
+
+
+
+
+
+
+        </script>
+
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    </body>
+</html>
